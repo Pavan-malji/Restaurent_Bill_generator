@@ -14,3 +14,8 @@ Welcome to **Pavan's Restro** — a console-based restaurant billing system buil
 ### Compile
 ```bash
 gcc Code.c -o billgen
+Run the Program
+On Linux or macOS:
+./billgen
+On Windows
+billgen.exe
