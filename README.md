@@ -13,4 +13,4 @@ Welcome to **Pavan's Restro** — a console-based restaurant billing system buil
 
 ### Compile
 ```bash
-gcc billgen.c -o billgen
+gcc Code.c -o billgen
