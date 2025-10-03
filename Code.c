@@ -111,26 +111,35 @@ void generateBill()
     printf("Total: Rs. %.2f\n", getTotal());
 }
 void saveBillToFile()
-{   
-    FILE *fp=fopen("Bill.txt","w");
-   fprintf(fp,"\n--------Pavan's Restro--------\n");
-    fprintf(fp,"\n----------Your Bill------------\n");
-    fprintf(fp,"Item       Qty      Price\n");
-    for (int i = 0; i < orderCount; i++)
-    {
+{
+    static int billNumber = 1;
+    char filename[50];
+    sprintf(filename, "Bill_%d.txt", billNumber);
+
+    FILE *fp = fopen(filename, "w");
+    if (fp == NULL) {
+        printf("Error saving bill to file.\n");
+        return;
+    }
+
+    fprintf(fp, "\n--------Pavan's Restro--------\n");
+    fprintf(fp, "\n----------Your Bill------------\n");
+    fprintf(fp, "Item       Qty      Price\n");
+    for (int i = 0; i < orderCount; i++) {
         int itemId = orders[i].itemId;
-        for (int j = 0; j < MAX_ITEMS; j++)
-        {
-            if (menu[j].id == itemId)
-            {
-                fprintf(fp,"%-10s x %-5d = Rs. %.2f\n", menu[j].name, orders[i].quantity, orders[i].totalPrice);
+        for (int j = 0; j < MAX_ITEMS; j++) {
+            if (menu[j].id == itemId) {
+                fprintf(fp, "%-10s x %-5d = Rs. %.2f\n", menu[j].name, orders[i].quantity, orders[i].totalPrice);
                 break;
             }
         }
     }
-    fprintf(fp,"----------------------\n");
-    fprintf(fp,"Total: Rs. %.2f\n", getTotal());
+    fprintf(fp, "----------------------\n");
+    fprintf(fp, "Total: Rs. %.2f\n", getTotal());
     fclose(fp);
+
+    printf("Bill saved as %s\n", filename);
+    billNumber++;
 }
 //Clear orders
 void clearOrders()
